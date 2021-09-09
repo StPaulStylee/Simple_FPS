@@ -8,6 +8,7 @@ namespace fps.objects {
   public class Bullet : MonoBehaviour {
     public float MoveSpeed;
     public int Damage;
+    public GameObject hitParticle { get; set; }
     private float lifetime;
     [SerializeField]
     private float maxLifetime = 5f;
@@ -24,6 +25,8 @@ namespace fps.objects {
       if (other.CompareTag("Enemy")) {
         other.GetComponent<Enemy>().TakeDamge(Damage);
       }
+      GameObject obj = Instantiate(hitParticle, transform.position, Quaternion.identity);
+      Destroy(obj, 0.5f);
       BulletPool.Instance.ReturnToPool(this);
     }
 

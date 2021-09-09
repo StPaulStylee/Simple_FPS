@@ -143,6 +143,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   Value: 50
+  RotateSpeed: 90
+  BobSpeed: 1
+  BobHeight: 0.5
 --- !u!1 &5874346600448026935
 GameObject:
   m_ObjectHideFlags: 0

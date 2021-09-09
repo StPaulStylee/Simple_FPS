@@ -223,3 +223,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Value: 10
+  RotateSpeed: 90
+  BobSpeed: 0
+  BobHeight: 0

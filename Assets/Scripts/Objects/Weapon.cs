@@ -14,6 +14,8 @@ namespace fps.objectpools {
     private float fireTimer;
     [SerializeField]
     private Transform muzzle;
+    [SerializeField]
+    private GameObject hitParticle;
 
     private bool isPlayer;
 
@@ -31,6 +33,7 @@ namespace fps.objectpools {
 
     public void Fire() {
       var shot = BulletPool.Instance.Get();
+      shot.hitParticle = hitParticle;
       shot.transform.position = muzzle.transform.position;
       shot.transform.rotation = muzzle.transform.rotation;
       shot.gameObject.SetActive(true);
