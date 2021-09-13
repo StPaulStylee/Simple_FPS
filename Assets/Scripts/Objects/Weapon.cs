@@ -1,4 +1,5 @@
 ﻿using fps.characters;
+using fps.managers.game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace fps.objectpools {
 
     private void Awake() {
       // Are we attached to the player?
-      if (GetComponent<Player>()) {
+      if (GetComponentInParent<Player>()) {
         isPlayer = true;
       }
       else isPlayer = false;
@@ -38,6 +39,9 @@ namespace fps.objectpools {
       shot.transform.rotation = muzzle.transform.rotation;
       shot.gameObject.SetActive(true);
       CurrentAmmo--;
+      if (isPlayer) {
+        GameUI.Instance.UpdateAmmoText(CurrentAmmo, MaxAmmo);
+      }
     }
 
     public bool CanShoot() {

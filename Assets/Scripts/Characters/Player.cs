@@ -1,4 +1,5 @@
-﻿using System;
+﻿using fps.managers.game;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -90,6 +91,11 @@ namespace fps.characters {
 
     public void GiveAmmo(int amount) {
       weapon.CurrentAmmo = Mathf.Clamp(weapon.CurrentAmmo + amount, 0, weapon.MaxAmmo);
+    }
+
+    public override void TakeDamge(int damage) {
+      base.TakeDamge(damage);
+      GameUI.Instance.UpdateHealthBar(CurrentHp, MaxHp);
     }
   }
 }

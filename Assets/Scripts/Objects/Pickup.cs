@@ -1,4 +1,5 @@
 ﻿using fps.characters;
+using fps.managers.game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,9 +31,11 @@ namespace fps.objects {
         switch (Type) {
           case PickupType.Health:
             player.GiveHealth(Value);
+            GameUI.Instance.UpdateHealthBar(player.CurrentHp, player.MaxHp);
             break;
           case PickupType.Ammo:
             player.GiveAmmo(Value);
+            GameUI.Instance.UpdateAmmoText(player.weapon.CurrentAmmo, player.weapon.MaxAmmo);
             break;
         }
         Destroy(gameObject);
