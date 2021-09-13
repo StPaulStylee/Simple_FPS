@@ -28,6 +28,12 @@ namespace fps.objectpools {
       else isPlayer = false;
     }
 
+    private void Start() {
+      if (isPlayer) {
+        GameUI.Instance.UpdateAmmoText(CurrentAmmo, MaxAmmo);
+      }
+    }
+
     private void Update() {
       fireTimer += Time.deltaTime;
     }

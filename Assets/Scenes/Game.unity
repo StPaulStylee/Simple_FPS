@@ -265,7 +265,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.443
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -10910,7 +10910,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Ammo: 100 / 100'
+  m_Text: 'Ammo: 0 / 0'
 --- !u!222 &349917155
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13743,7 +13743,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Score: 1827'
+  m_Text: 'Score: 0'
 --- !u!222 &2071392758
 CanvasRenderer:
   m_ObjectHideFlags: 0

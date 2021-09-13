@@ -9,9 +9,8 @@ namespace fps.managers.game {
   public class GameManager : MonoBehaviour {
     public int ScoreToWin;
     public int CurrentScore = 0;
-
     public bool IsGamePaused;
-
+    public bool IsEndGame = false;
     public static GameManager Instance;
 
     private void Awake() {
@@ -19,6 +18,7 @@ namespace fps.managers.game {
     }
 
     private void Start() {
+      Time.timeScale = 1f;
       GameUI.Instance.UpdateScoreText(CurrentScore);
     }
 
@@ -29,8 +29,18 @@ namespace fps.managers.game {
     }
 
     public void TogglePauseGame() {
+      if (IsEndGame) {
+        return;
+      }
+
       IsGamePaused = !IsGamePaused;
-      Time.timeScale = IsGamePaused ? 0f : 1f;
+      if (IsGamePaused) {
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.Confined;
+      } else {
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+      }
       GameUI.Instance.TogglePauseMenu(IsGamePaused);
     }
 
@@ -50,12 +60,15 @@ namespace fps.managers.game {
       CurrentScore += score;
       GameUI.Instance.UpdateScoreText(CurrentScore);
       if (CurrentScore >= ScoreToWin) {
-        WinGame();
+        EndGame(true);
       }
     }
 
-    private void WinGame() {
-      GameUI.Instance.SetEndGameMenu(true, CurrentScore);
+    public void EndGame(bool victoryState) {
+      IsEndGame = true;
+      Time.timeScale = 0f;
+      Cursor.lockState = CursorLockMode.Confined;
+      GameUI.Instance.SetEndGameMenu(victoryState, CurrentScore);
     }
   }
 }

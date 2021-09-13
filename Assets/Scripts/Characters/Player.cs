@@ -27,7 +27,15 @@ namespace fps.characters {
       Cursor.lockState = CursorLockMode.Locked; // Locks the cursor to the center of the screen and hides it
     }
 
+    private void Start() {
+      GameUI.Instance.UpdateHealthBar(CurrentHp, MaxHp);
+    }
+
     private void Update() {
+      if (GameManager.Instance.IsGamePaused || GameManager.Instance.IsEndGame) {
+        return;
+      }
+
       desiredVelocity = GetMoveInputs();
       if (Input.GetButtonDown("Jump")) {
         TryJump();
@@ -82,7 +90,7 @@ namespace fps.characters {
     }
 
     protected override void Die() {
-      Debug.Log("Ya done, son!");
+      GameManager.Instance.EndGame(false);
     }
 
     public void GiveHealth(int amount) {
