@@ -32,7 +32,6 @@ namespace fps.managers.game {
       if (IsEndGame) {
         return;
       }
-
       IsGamePaused = !IsGamePaused;
       if (IsGamePaused) {
         Time.timeScale = 0f;

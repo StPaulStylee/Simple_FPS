@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace fps.objectpools {
+  [RequireComponent(typeof(AudioSource))]
   public class Weapon : MonoBehaviour {
     public int CurrentAmmo;
     public int MaxAmmo;
     public bool InfiniteAmmo;
+    public AudioClip SoundEffect;
 
+    private AudioSource soundSource;
     [SerializeField]
     private float refireRate = 0.2f;
     private float fireTimer;
@@ -26,6 +29,7 @@ namespace fps.objectpools {
         isPlayer = true;
       }
       else isPlayer = false;
+      soundSource = GetComponent<AudioSource>();
     }
 
     private void Start() {
@@ -44,6 +48,7 @@ namespace fps.objectpools {
       shot.transform.position = muzzle.transform.position;
       shot.transform.rotation = muzzle.transform.rotation;
       shot.gameObject.SetActive(true);
+      soundSource.PlayOneShot(SoundEffect);
       CurrentAmmo--;
       if (isPlayer) {
         GameUI.Instance.UpdateAmmoText(CurrentAmmo, MaxAmmo);

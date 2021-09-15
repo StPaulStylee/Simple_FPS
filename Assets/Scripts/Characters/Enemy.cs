@@ -37,7 +37,7 @@ namespace fps.characters {
     }
 
     private void ChaseTarget() {
-      if (path.Count == 0) { return; }
+      if (path == null || path.Count == 0) { return; }
       // Move towards the closest path
       transform.position = Vector3.MoveTowards(transform.position, path[0] + new Vector3(0, YPathOffest, 0), MoveSpeed * Time.deltaTime);
       if (transform.position == path[0] + new Vector3(0, YPathOffest, 0)) {

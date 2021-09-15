@@ -13,7 +13,7 @@ namespace fps.characters {
     [Header("Movement")]
     public float MoveSpeed; // Movement Speed in units per second
 
-    public Weapon weapon;
+    public Weapon weapon { get; set; }
 
     protected virtual void Awake() {
       weapon = GetComponentInChildren<Weapon>();

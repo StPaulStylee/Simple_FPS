@@ -8,6 +8,7 @@ namespace fps.objects {
   public class Pickup : MonoBehaviour {
     public PickupType Type;
     public int Value;
+    public AudioClip SoundEffect;
 
     [Header("Animate")]
     public float RotateSpeed = 90f;
@@ -26,7 +27,6 @@ namespace fps.objects {
 
     private void OnTriggerEnter(Collider other) {
       if (other.CompareTag("Player")) {
-        Debug.Log($"{Type}: {Value} TRIGGERED!");
         Player player = other.GetComponent<Player>();
         switch (Type) {
           case PickupType.Health:
@@ -38,6 +38,8 @@ namespace fps.objects {
             GameUI.Instance.UpdateAmmoText(player.weapon.CurrentAmmo, player.weapon.MaxAmmo);
             break;
         }
+        // This audio source is coming from the weapon of the player
+        other.GetComponentInChildren<AudioSource>().PlayOneShot(SoundEffect);
         Destroy(gameObject);
       }
     }
