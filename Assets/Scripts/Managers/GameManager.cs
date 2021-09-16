@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Update the ScoreToWin to collect all enemies and add up their PointsToGive
+// Update UI to show enemies remaining
+// AI isn't chasing the player anymore
 namespace fps.managers.game {
   public class GameManager : MonoBehaviour {
     public int ScoreToWin;
@@ -52,7 +55,7 @@ namespace fps.managers.game {
     }
 
     public void OnExit() {
-      Debug.Log("You're quitting the game.");
+      Application.Quit();
     }
 
     public void AddScore(int score) {
