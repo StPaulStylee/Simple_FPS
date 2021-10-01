@@ -5,16 +5,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace fps.characters {
-  [RequireComponent(typeof(Rigidbody))]
+  [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
   public abstract class PlayableCharacter : Character {
     [Header("Movement")]
-    public float JumpForce; // force applied upwards
+    public float JumpForce = 4; // force applied upwards
+    public float SprintMultiplier = 2;
     protected Vector3 desiredVelocity;
 
     [Header("Camera")]
-    public float LookSensitivity; // mouse look sensitivity
-    public float MinLookX; // Lowest we can look
-    public float MaxLookX; // Highest we can look
+    public float LookSensitivity = 4f; // mouse look sensitivity
+    public float MinLookX = -80f; // Lowest we can look
+    public float MaxLookX = 80f; // Highest we can look
     private float currentRotationX; // current x rotation of the camera
 
     private Camera cam;
@@ -29,22 +30,16 @@ namespace fps.characters {
     }
 
     protected virtual void Update() {
-      if (GameManager.Instance.IsGamePaused || GameManager.Instance.IsEndGame) {
-        return;
-      }
-
       desiredVelocity = GetMoveInputs();
       if (Input.GetButtonDown("Jump")) {
         TryJump();
       }
-      if (Input.GetButton("Fire1")) { // GetButton is used here because it is called every frame that the button is held down
-        if (weapon.CanShoot()) {
-          weapon.Fire();
-        }
+      if (Input.GetButton("Sprint")) {
+        desiredVelocity.x *= SprintMultiplier;
+        desiredVelocity.z *= SprintMultiplier;
       }
       CameraLook();
     }
-
     private void FixedUpdate() {
       Move(desiredVelocity);
     }

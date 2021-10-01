@@ -10,10 +10,23 @@ namespace fps.characters {
       GameUI.Instance.UpdateHealthBar(CurrentHp, MaxHp);
     }
 
+    protected override void Update() {
+      if (GameManager.Instance.IsGamePaused || GameManager.Instance.IsEndGame) {
+        return;
+      }
+      if (Input.GetButton("Fire1")) { // GetButton is used here because it is called every frame that the button is held down
+        if (weapon.CanShoot()) {
+          weapon.Fire();
+        }
+      }
+      base.Update();
+    }
+
     protected override void TryJump() {
       Ray ray = new Ray(transform.position, Vector3.down);
       // The player is 2 units tall, therefore 1 unit is in the middle of the player so we want to send our raycast downwards 1.1 units...
       // ... all the way down the player body plus another .1 units
+      // TODO: Get this value from the gameobject instead of hard coding
       if (Physics.Raycast(ray, 1.1f)) {
         rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);  // AddForce by default behaves like adding force to a very heavy object; slowly. Impluse makes it instant; quick/snappy
       }
